@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { DatabaseInfo, StarItem } from "./types.ts";
   import Icons from "./Icons.svelte";
+  import Section from "./Section.svelte";
 
   const STORAGE_KEY = "datasette-sidebar-tree-expanded";
 
@@ -55,8 +56,7 @@
   }
 </script>
 
-<section class="sidebar-section">
-  <h3 class="sidebar-section-title">Databases and Tables</h3>
+<Section title="Databases and Tables" id="data-tree">
   {#if loading}
     <p class="sidebar-loading">Loading...</p>
   {:else}
@@ -139,23 +139,9 @@
       {/each}
     </ul>
   {/if}
-</section>
+</Section>
 
 <style>
-  .sidebar-section {
-    margin-bottom: 4px;
-  }
-
-  .sidebar-section-title {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #999;
-    padding: 8px 16px 4px;
-    margin: 0;
-  }
-
   .sidebar-loading {
     padding: 16px;
     color: #888;
@@ -197,6 +183,7 @@
     border: none;
     cursor: pointer;
     padding: 2px;
+    margin-left: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -241,11 +228,6 @@
 
   .tree-label-db {
     font-weight: 500;
-  }
-
-  .tree-label-col {
-    color: #777;
-    font-size: 12px;
   }
 
   .tree-star {

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { StarItem } from "./types.ts";
   import Icons from "./Icons.svelte";
+  import Section from "./Section.svelte";
 
   let {
     stars,
@@ -44,17 +45,16 @@
 </script>
 
 {#if allStars.length > 0}
-  <section class="sidebar-section">
-    <h3 class="sidebar-section-title">Starred</h3>
-    <ul class="sidebar-list">
+  <Section title="Starred" id="starred">
+    <ul class="starred-list">
       {#each allStars as star (star.id)}
-        <li class="sidebar-item">
-          <a href={starUrl(star)} class="sidebar-item-link">
-            <span class="sidebar-item-icon"><Icons kind={star.star_type} /></span>
+        <li class="starred-item">
+          <a href={starUrl(star)} class="starred-item-link">
+            <span class="starred-item-icon"><Icons kind={star.star_type} /></span>
             {starLabel(star)}
           </a>
           <button
-            class="sidebar-item-unstar"
+            class="starred-item-unstar"
             onclick={() => onunstar(star.id)}
             title="Unstar"
           >
@@ -65,37 +65,23 @@
         </li>
       {/each}
     </ul>
-  </section>
+  </Section>
 {/if}
 
 <style>
-  .sidebar-section {
-    margin-bottom: 4px;
-  }
-
-  .sidebar-section-title {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #999;
-    padding: 8px 16px 4px;
-    margin: 0;
-  }
-
-  .sidebar-list {
+  .starred-list {
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .sidebar-item {
+  .starred-item {
     display: flex;
     align-items: center;
     padding: 0 8px;
   }
 
-  .sidebar-item-link {
+  .starred-item-link {
     flex: 1;
     display: flex;
     align-items: center;
@@ -111,18 +97,18 @@
     white-space: nowrap;
   }
 
-  .sidebar-item-link:hover {
+  .starred-item-link:hover {
     background: #e8e8e8;
   }
 
-  .sidebar-item-icon {
+  .starred-item-icon {
     display: flex;
     align-items: center;
     flex-shrink: 0;
     color: #999;
   }
 
-  .sidebar-item-unstar {
+  .starred-item-unstar {
     background: none;
     border: none;
     cursor: pointer;
@@ -136,11 +122,11 @@
     transition: opacity 0.15s;
   }
 
-  .sidebar-item:hover .sidebar-item-unstar {
+  .starred-item:hover .starred-item-unstar {
     opacity: 1;
   }
 
-  .sidebar-item-unstar:hover {
+  .starred-item-unstar:hover {
     color: #e44;
     background: #fee;
   }
