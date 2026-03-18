@@ -155,20 +155,14 @@
   class:sidebar-panel-hidden={!visible}
   aria-label="Sidebar"
 >
-  <div class="sidebar-header">
-    <button class="sidebar-close" onclick={toggle} title="Close sidebar (Cmd+B)">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path
-          d="M4 4L12 12M12 4L4 12"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-        />
-      </svg>
-    </button>
-  </div>
-
   <div class="sidebar-content">
+    <div class="sidebar-collapse-row">
+      <button class="sidebar-collapse-btn" onclick={toggle} title="Close sidebar (Cmd+B)">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <path d="M7 1L3 5L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
     {#if !loading}
       <StarredSection
         stars={filteredStars}
@@ -252,31 +246,29 @@
     pointer-events: none;
   }
 
-  .sidebar-header {
+  .sidebar-collapse-row {
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    height: 2.6rem;
-    padding: 0 8px;
-    border-bottom: 1px solid #e0e0e0;
-    background: #fff;
-    flex-shrink: 0;
+    padding: 8px 8px 0;
   }
 
-  .sidebar-close {
+  .sidebar-collapse-btn {
     background: none;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    color: #888;
-    padding: 4px;
-    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.25);
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 5px;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
   }
 
-  .sidebar-close:hover {
-    background: #eee;
-    color: #333;
+  .sidebar-collapse-btn:hover {
+    color: rgba(0, 0, 0, 0.6);
+    border-color: rgba(0, 0, 0, 0.3);
+    background: #f0f0f0;
   }
 
   .sidebar-content {
