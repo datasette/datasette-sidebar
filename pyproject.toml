@@ -1,0 +1,44 @@
+[project]
+name = "datasette-sidebar"
+version = "0.1a1"
+description = "Add a user-configurable sidebar for starring databases, tables, and rows"
+readme = "README.md"
+authors = [{name = "Alex Garcia"}]
+license = "Apache-2.0"
+classifiers = ["Framework :: Datasette"]
+requires-python = ">=3.10"
+dependencies = [
+    "datasette>=1.0a23",
+    "datasette-plugin-router>=0.0.1a2",
+    "datasette-vite>=0.0.1a2",
+    "pydantic>=2",
+    "python-ulid>=3",
+    "sqlite-migrate>=0.1b0",
+    "sqlite-utils>=3.38",
+]
+
+[dependency-groups]
+dev = ["pytest", "pytest-asyncio", "ruff>=0.15.0"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/datasette/datasette-sidebar"
+Changelog = "https://github.com/datasette/datasette-sidebar/releases"
+Issues = "https://github.com/datasette/datasette-sidebar/issues"
+CI = "https://github.com/datasette/datasette-sidebar/actions"
+
+[project.entry-points.datasette]
+sidebar = "datasette_sidebar"
+
+[tool.setuptools.package-data]
+datasette_sidebar = ["static/**/*", "templates/*", "manifest.json"]
+
+[tool.setuptools.packages.find]
+exclude = ["frontend"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"

@@ -1,0 +1,23 @@
+name: Test
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+    - uses: actions/checkout@v5
+    - uses: astral-sh/setup-uv@v7
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: actions/setup-node@v6
+    - uses: extractions/setup-just@v3
+    - run: npm install --prefix frontend
+    - run: just frontend
+    - run: uv run pytest
