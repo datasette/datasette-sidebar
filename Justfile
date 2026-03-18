@@ -73,6 +73,7 @@ dev *flags:
     DATASETTE_SECRET=abc123 uv run \
     --with datasette-debug-gotham \
     datasette \
+    --plugins-dir sample \
     -s permissions.datasette-sidebar-access.id "*" \
     {{flags}}
 

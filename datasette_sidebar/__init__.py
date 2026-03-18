@@ -2,11 +2,15 @@ import os
 
 from datasette import hookimpl
 from datasette.permissions import Action
+from datasette.plugins import pm
 from datasette_vite import vite_js_urls, vite_css_urls
 from sqlite_utils import Database as SqliteUtilsDatabase
 
+from . import hookspecs
 from .router import router, SIDEBAR_ACCESS_ACTION
 from .internal_migrations import internal_migrations
+
+pm.add_hookspecs(hookspecs)
 
 # Import route modules to trigger registration on the shared router
 from .routes import api

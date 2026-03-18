@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from datasette import Response
+from datasette.plugins import pm
 from datasette_plugin_router import Body
 from pydantic import BaseModel
 
@@ -99,3 +100,23 @@ async def api_remove_star(datasette, request, star_id: str):
         star_id=star_id,
     )
     return Response.json({"removed": removed})
+
+
+@router.GET("/-/sidebar/api/apps$")
+@check_permission()
+async def api_get_apps(datasette, request):
+    database_name = request.args.get("database_name") or None
+    apps = []
+    for result in pm.hook.datasette_sidebar_apps(datasette=datasette):
+        if result:
+            for app in result:
+                apps.append(
+                    {
+                        "label": app.label,
+                        "href": app.resolve_href(database_name),
+                        "icon": app.icon,
+                        "color": app.color,
+                        "description": app.description,
+                    }
+                )
+    return Response.json({"apps": apps})

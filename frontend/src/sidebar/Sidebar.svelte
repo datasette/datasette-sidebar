@@ -1,7 +1,15 @@
 <script lang="ts">
   import StarredSection from "./StarredSection.svelte";
+  import AppsSection from "./AppsSection.svelte";
   import DataTree from "./DataTree.svelte";
   import type { StarItem, DatabaseInfo, TableInfo } from "./types.ts";
+
+  interface AppItem {
+    label: string;
+    href: string;
+    icon: string;
+    color: string;
+  }
 
   let visible = $state(
     localStorage.getItem("datasette-sidebar-visible") !== "false",
@@ -10,6 +18,7 @@
   let loading = $state(true);
   let databases = $state<DatabaseInfo[]>([]);
   let loadingData = $state(true);
+  let apps = $state<AppItem[]>([]);
 
   // Determine current context from URL
   const pathParts = window.location.pathname.split("/").filter(Boolean);
@@ -85,6 +94,19 @@
     }
   }
 
+  async function loadApps() {
+    try {
+      const params = currentDatabase ? `?database_name=${currentDatabase}` : "";
+      const resp = await fetch(`/-/sidebar/api/apps${params}`);
+      if (resp.ok) {
+        const data = await resp.json();
+        apps = data.apps;
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   async function unstar(starId: string) {
     const resp = await fetch(`/-/sidebar/api/stars/${starId}/remove`, {
       method: "POST",
@@ -123,6 +145,7 @@
   $effect(() => {
     loadStars();
     loadDatabases();
+    loadApps();
     window.addEventListener("keydown", handleKeydown);
     window.addEventListener("sidebar-stars-changed", handleStarsChanged);
     return () => {
@@ -172,6 +195,8 @@
     {/if}
 
     <DataTree {databases} loading={loadingData} onstar={toggleStar} stars={stars} />
+
+    <AppsSection {apps} />
   </div>
 </nav>
 
