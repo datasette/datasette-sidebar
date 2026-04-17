@@ -1,6 +1,6 @@
 [project]
 name = "datasette-sidebar"
-version = "0.0.1a1"
+version = "0.0.1a2"
 description = "Add a user-configurable sidebar for starring databases, tables, and rows"
 readme = "README.md"
 authors = [{name = "Alex Garcia"}]
