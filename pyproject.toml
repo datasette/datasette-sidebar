@@ -37,7 +37,7 @@ sidebar = "datasette_sidebar"
 datasette_sidebar = ["static/**/*", "templates/*", "manifest.json"]
 
 [tool.setuptools.packages.find]
-exclude = ["frontend"]
+exclude = ["frontend", "build", "build.*"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "strict"

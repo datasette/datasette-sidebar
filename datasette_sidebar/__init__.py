@@ -73,8 +73,8 @@ def register_actions(datasette):
 
 @hookimpl
 async def startup(datasette):
-    def migrate(connection):
-        db = SqliteUtilsDatabase(connection)
+    def migrate(conn):
+        db = SqliteUtilsDatabase(conn)
         internal_migrations.apply(db)
 
     await datasette.get_internal_database().execute_write_fn(migrate)
