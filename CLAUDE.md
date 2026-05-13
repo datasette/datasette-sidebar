@@ -80,8 +80,11 @@ Unlike typical fullstack plugins with their own pages, the sidebar injects JS/CS
 
 ## Environment Variables
 
-- `DATASETTE_SIDEBAR_VITE_PATH` — Vite dev server URL for HMR (e.g., `http://localhost:5180/`)
 - `DATASETTE_SECRET` — Required for dev server
+
+## Datasette Settings (`-s` flags)
+
+- `plugins.datasette-vite.dev_ports.datasette_sidebar` — Vite HMR port (used by `just dev-with-hmr`). See `datasette-vite` 0.0.1a4 for the full resolution order.
 
 ## Key Conventions
 

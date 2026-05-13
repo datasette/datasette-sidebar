@@ -1,5 +1,3 @@
-import os
-
 from datasette import hookimpl
 from datasette.permissions import Action
 from datasette.plugins import pm
@@ -17,7 +15,6 @@ from .routes import api
 
 _ = (api,)
 
-VITE_DEV_PATH = os.environ.get("DATASETTE_SIDEBAR_VITE_PATH")
 SIDEBAR_ENTRYPOINT = "src/sidebar/index.ts"
 
 
@@ -40,7 +37,6 @@ def extra_js_urls(datasette, request):
             datasette=datasette,
             entrypoint=SIDEBAR_ENTRYPOINT,
             plugin_package="datasette_sidebar",
-            vite_dev_path=VITE_DEV_PATH,
         )
 
     return inner
@@ -55,7 +51,6 @@ def extra_css_urls(datasette, request):
             datasette=datasette,
             entrypoint=SIDEBAR_ENTRYPOINT,
             plugin_package="datasette_sidebar",
-            vite_dev_path=VITE_DEV_PATH,
         )
 
     return inner

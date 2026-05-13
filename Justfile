@@ -79,11 +79,12 @@ dev *flags:
 
 # Run Datasette with Vite HMR (auto-restarts on Python/HTML changes)
 dev-with-hmr *flags:
-    DATASETTE_SIDEBAR_VITE_PATH=http://localhost:{{HMR_PORT}}/ \
     watchexec \
       --stop-signal SIGKILL \
       -e py,html \
       --ignore '*.db' \
       --restart \
       --clear -- \
-      just dev {{flags}}
+      just dev \
+        -s plugins.datasette-vite.dev_ports.datasette_sidebar {{HMR_PORT}} \
+        {{flags}}
